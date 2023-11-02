@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.EventQueue;
 
+import clase.Docente;
+import arreglo.ArregloDocentes;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -122,7 +125,7 @@ public class Problema_09_2 extends JFrame implements ActionListener {
 		scrollPaneA.setViewportView(tblTabla);
 
 		modelo = new DefaultTableModel();
-		modelo.addColumn("código");
+		modelo.addColumn("c digo");
 		modelo.addColumn("nombre");
 		modelo.addColumn("horas");
 		modelo.addColumn("tarifa");
@@ -148,21 +151,32 @@ public class Problema_09_2 extends JFrame implements ActionListener {
 		}
 	}
 	
-	//  Declaración global
+	//  Declaraci n global
+	
+	ArregloDocentes ad = new ArregloDocentes();
 	
 	protected void actionPerformedBtnAdicionar(ActionEvent arg0) {
-		/**
-		 * Agrega un nuevo docente
-		 */	
+		int codigo = leerCodigo();
+		String nombre = leerNombre();
+		double tarifa = leerTarifa();
+		int horas = leerHoras();
+		Docente nuevo = new Docente(codigo, horas, nombre, tarifa);
+		ad.adicionar(nuevo);
+		listar();
+		limpieza();
 
 	}
 	protected void actionPerformedBtnReportar(ActionEvent arg0) {
-		/**
-		 * Visualiza un reporte
-		 */
-
+		txtS.setText("");
+		imprimir("cantidad de alumnos :  " + ad.tamanio());
+		imprimir("Sueldo promedio :  " + ad.Sueldopromedio());
+		imprimir("Sueldo Mayor :  " + ad.sueldoMayor());
+		imprimir("Suedo Menor :  " + ad.sueldoMenor());
+		imprimir("Tarifa Mayor :  " + ad.tarifaMayor());
+		imprimir("Tarifa Menor :  " + ad.tarifaMenor());
+		
   	}
-	//  Métodos tipo void (sin parámetros)
+	//  M todos tipo void (sin par metros)
 	void imprimir() {
 		imprimir("");
 	}
@@ -176,16 +190,25 @@ public class Problema_09_2 extends JFrame implements ActionListener {
 	}
    	void listar() {
 		modelo.setRowCount(0);
+		for (int i=0; i<ad.tamanio(); i++) {
+			Object[] fila = { ad.obtener(i).getCodigo(),
+					          ad.obtener(i).getNombre(),
+					          ad.obtener(i).getHoras(),
+					          ad.obtener(i).getTarifa(),
+					          ad.obtener(i).sueldo(),
+					          };
+			modelo.addRow(fila);
+		}
 
 	}
-	//  Métodos tipo void (con parámetros)
+	//  M todos tipo void (con par metros)
 	void imprimir(String s) {
 		txtS.append(s + "\n");
 	}
 	void mensaje(String s) {
 		JOptionPane.showMessageDialog(this, s);
 	}		
-	//  Métodos que retornan valor (sin parámetros)
+	//  M todos que retornan valor (sin par metros)
 	int leerCodigo() {
 		return Integer.parseInt(txtCodigo.getText().trim());
 	}
