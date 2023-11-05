@@ -2,8 +2,8 @@ package gui;
 
 import java.awt.EventQueue;
 
-import clase.Factura;
-import arreglo.ArregloFacturas;
+import clase.Docente;
+import arreglo.ArregloDocentes;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,24 +16,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class Propuesto_09_1 extends JFrame implements ActionListener {
+public class Problema_09_2 extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private JLabel lblRuc;
-	private JLabel lblEmpresa;
-	private JLabel lblUnidades;
-	private JLabel lblPrecio;
-	private JTextField txtRuc;
-	private JTextField txtEmpresa;
-	private JTextField txtUnidades;	
-	private JTextField txtPrecio;
+	private JLabel lblCodigo;
+	private JLabel lblNombre;
+	private JLabel lblHoras;
+	private JLabel lblTarifa;
+	private JTextField txtCodigo;
+	private JTextField txtNombre;
+	private JTextField txtHoras;	
+	private JTextField txtTarifa;
 	private JButton btnAdicionar;	
 	private JButton btnReportar;
 	private JScrollPane scrollPaneA;
@@ -49,7 +48,7 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Propuesto_09_1 frame = new Propuesto_09_1();
+					Problema_09_2 frame = new Problema_09_2();
 					frame.setVisible(true);
 				}
 				catch (Exception e) {
@@ -62,8 +61,8 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Propuesto_09_1() {
-		setTitle("Propuesto_09_1");
+	public Problema_09_2() {
+		setTitle("Problema_09_2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 400);
 		contentPane = new JPanel();
@@ -71,41 +70,41 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	
-		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(10, 11, 40, 28);
-		contentPane.add(lblRuc);
+		lblCodigo = new JLabel("C\u00F3digo");
+		lblCodigo.setBounds(10, 11, 40, 28);
+		contentPane.add(lblCodigo);
 		
-		lblEmpresa = new JLabel("Empresa");
-		lblEmpresa.setBounds(123, 11, 60, 28);
-		contentPane.add(lblEmpresa);	
+		lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(120, 11, 50, 28);
+		contentPane.add(lblNombre);	
 		
-		lblUnidades = new JLabel("Unidades");
-		lblUnidades.setBounds(250, 11, 60, 28);
-		contentPane.add(lblUnidades);
+		lblHoras = new JLabel("Horas");
+		lblHoras.setBounds(255, 11, 40, 28);
+		contentPane.add(lblHoras);	
 		
-		lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(360, 11, 40, 28);
-		contentPane.add(lblPrecio);		
+		lblTarifa = new JLabel("Tarifa");
+		lblTarifa.setBounds(356, 11, 40, 28);
+		contentPane.add(lblTarifa);	
 		
-		txtRuc = new JTextField();
-		txtRuc.setBounds(40, 11, 70, 28);
-		contentPane.add(txtRuc);
-		txtRuc.setColumns(10);
+		txtCodigo = new JTextField();
+		txtCodigo.setBounds(54, 11, 40, 28);
+		contentPane.add(txtCodigo);
+		txtCodigo.setColumns(10);
 		
-		txtEmpresa = new JTextField();
-		txtEmpresa.setBounds(180, 11, 60, 28);
-		contentPane.add(txtEmpresa);
-		txtEmpresa.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(170, 11, 60, 28);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
 		
-		txtUnidades = new JTextField();
-		txtUnidades.setBounds(308, 11, 40, 28);
-		contentPane.add(txtUnidades);
-		txtUnidades.setColumns(10);
+		txtHoras = new JTextField();
+		txtHoras.setBounds(295, 11, 40, 28);
+		contentPane.add(txtHoras);
+		txtHoras.setColumns(10);
 		
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(402, 11, 40, 28);
-		contentPane.add(txtPrecio);
-		txtPrecio.setColumns(10);
+		txtTarifa = new JTextField();
+		txtTarifa.setBounds(402, 11, 40, 28);
+		contentPane.add(txtTarifa);
+		txtTarifa.setColumns(10);
 
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(this);
@@ -126,11 +125,11 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 		scrollPaneA.setViewportView(tblTabla);
 
 		modelo = new DefaultTableModel();
-		modelo.addColumn("ruc");
-		modelo.addColumn("empresa");
-		modelo.addColumn("unidades");
-		modelo.addColumn("precio");
-		modelo.addColumn("importe");
+		modelo.addColumn("c digo");
+		modelo.addColumn("nombre");
+		modelo.addColumn("horas");
+		modelo.addColumn("tarifa");
+		modelo.addColumn("sueldo");
 		tblTabla.setModel(modelo);
 
 		scrollPaneB = new JScrollPane();
@@ -154,26 +153,27 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 	
 	//  Declaraci n global
 	
-	ArregloFacturas af = new ArregloFacturas();
+	ArregloDocentes ad = new ArregloDocentes();
 	
 	protected void actionPerformedBtnAdicionar(ActionEvent arg0) {
-		String ruc = leerRuc();
-		String empresa = leerEmpresa();
-		int unidades = leerUnidades();
-		double precio = leerPrecio();
-		Factura nuevo = new Factura(ruc, empresa, unidades, precio);
-		af.adicionar(nuevo);
+		int codigo = leerCodigo();
+		String nombre = leerNombre();
+		double tarifa = leerTarifa();
+		int horas = leerHoras();
+		Docente nuevo = new Docente(codigo, horas, nombre, tarifa);
+		ad.adicionar(nuevo);
 		listar();
 		limpieza();
+
 	}
 	protected void actionPerformedBtnReportar(ActionEvent arg0) {
 		txtS.setText("");
-		imprimir("cantidad de facturas :  " + af.tamanio());
-		imprimir("Suma importe Facturado :  " + af.sumaImporteFacturado());
-		imprimir("Promedio importe Facturado :  " + af.promedioImporteFacturado());
-		imprimir("Menor importe Facturado :  " + af.menorImporteFacturado());
-		imprimir("Mayor importe Facturado :  " + af.mayorImporteFacturado());
-		imprimir("Primera empresa con un importe Facturado menor que el promedio :  " + af.empresa());
+		imprimir("cantidad de alumnos :  " + ad.tamanio());
+		imprimir("Sueldo promedio :  " + ad.Sueldopromedio());
+		imprimir("Sueldo Mayor :  " + ad.sueldoMayor());
+		imprimir("Suedo Menor :  " + ad.sueldoMenor());
+		imprimir("Tarifa Mayor :  " + ad.tarifaMayor());
+		imprimir("Tarifa Menor :  " + ad.tarifaMenor());
 		
   	}
 	//  M todos tipo void (sin par metros)
@@ -181,24 +181,25 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 		imprimir("");
 	}
 	void limpieza() {
-		txtRuc.setText("");
-		txtEmpresa.setText("");
-		txtUnidades.setText("");
-		txtPrecio.setText("");
+		txtCodigo.setText("");
+		txtNombre.setText("");
+		txtHoras.setText("");
+		txtTarifa.setText("");
 		txtS.setText("");
-		txtRuc.requestFocus();
+		txtCodigo.requestFocus();
 	}
    	void listar() {
 		modelo.setRowCount(0);
-		for (int i=0; i<af.tamanio(); i++) {
-			Object[] fila = { af.obtener(i).getRuc(),
-					          af.obtener(i).getEmpresa(),
-					          af.obtener(i).getUnidades(),
-					          af.obtener(i).getPrecioUnitario(),
-					          af.obtener(i).importeFacturado(),
+		for (int i=0; i<ad.tamanio(); i++) {
+			Object[] fila = { ad.obtener(i).getCodigo(),
+					          ad.obtener(i).getNombre(),
+					          ad.obtener(i).getHoras(),
+					          ad.obtener(i).getTarifa(),
+					          ad.obtener(i).sueldo(),
 					          };
 			modelo.addRow(fila);
 		}
+
 	}
 	//  M todos tipo void (con par metros)
 	void imprimir(String s) {
@@ -208,17 +209,17 @@ public class Propuesto_09_1 extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(this, s);
 	}		
 	//  M todos que retornan valor (sin par metros)
-	String leerRuc() {
-		return txtRuc.getText().trim();
+	int leerCodigo() {
+		return Integer.parseInt(txtCodigo.getText().trim());
 	}
-	String leerEmpresa() {
-		return txtEmpresa.getText().trim();
+	String leerNombre() {
+		return txtNombre.getText().trim();
 	}
-	int leerUnidades() {
-		return Integer.parseInt(txtUnidades.getText().trim());
+	int leerHoras() {
+		return Integer.parseInt(txtHoras.getText().trim());
 	}
-	double leerPrecio() {
-		return Double.parseDouble(txtPrecio.getText().trim());
+	double leerTarifa() {
+		return Double.parseDouble(txtTarifa.getText().trim());
 	}
 	
 }
